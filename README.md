@@ -321,6 +321,4 @@ This journey built a strong foundation for deeper cybersecurity learning in pene
 
 ## Next Goal
 
-Continue Bandit beyond Level 17 and keep documenting progress publicly on [GitHub]([url](https://github.com/Pavan-glitch22)), [LinkedIn]([url](https://www.linkedin.com/in/pavan-n-cosmic)), and[ Medium]([url](https://medium.com/@Pavan_cosmic)).
-```
-```
+Continue Bandit beyond Level 17 and keep documenting progress publicly on [GitHub](https://github.com/Pavan-glitch22), [LinkedIn](https://www.linkedin.com/in/pavan-n-cosmic/), and [Medium](https://medium.com/@Pavan_cosmic).
