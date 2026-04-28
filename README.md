@@ -1,110 +1,95 @@
-# Bandit_lvl_1-17
-````markdown
-# OverTheWire Bandit Walkthrough (Level 0 → 17) 🚀
+# OverTheWire Bandit — Walkthrough (Level 0 → 17)
 
-> A hands-on cybersecurity learning project focused on Linux, networking, troubleshooting, and problem-solving using the OverTheWire Bandit wargame.
+> A detailed writeup of my journey through OverTheWire Bandit, covering Linux fundamentals, shell usage, file handling, permissions, encoding, networking, and real troubleshooting through practical exercises.
 
 ---
 
-## 📌 About This Project
+## Environment Setup
 
-This repository documents my progress through **OverTheWire Bandit Levels 0 to 17**.  
-Bandit is designed to teach essential Linux and cybersecurity fundamentals through practical challenges.
-
-Instead of only reading theory, I solved real tasks involving:
-
-- Linux command-line usage
-- File handling
-- Permissions
-- Searching and enumeration
-- Encoding / decoding
-- Compression formats
-- SSH authentication
-- Networking basics
-- Port scanning
-- Secure communication (TLS/SSL)
-- Debugging mindset
+| Item | Detail |
+|------|--------|
+| Platform | Kali Linux (Virtual Machine) |
+| Connection | SSH |
+| Notes | Local text file for passwords and progress |
+| Goal | Learn by solving manually and understanding every concept |
 
 ---
 
-## 🛠️ Lab Environment
+## Table of Contents
 
-| Item | Details |
-|------|---------|
-| OS | Kali Linux |
-| Platform | Virtual Machine |
-| Access Method | SSH |
-| Challenge Site | OverTheWire |
-| Levels Completed | 0 → 17 |
+- [Level 0 → 1](#level-0--1)
+- [Level 1 → 2](#level-1--2)
+- [Level 2 → 3](#level-2--3)
+- [Level 3 → 4](#level-3--4)
+- [Level 4 → 5](#level-4--5)
+- [Level 5 → 6](#level-5--6)
+- [Level 6 → 7](#level-6--7)
+- [Level 7 → 8](#level-7--8)
+- [Level 8 → 9](#level-8--9)
+- [Level 9 → 10](#level-9--10)
+- [Level 10 → 11](#level-10--11)
+- [Level 11 → 12](#level-11--12)
+- [Level 12 → 13](#level-12--13)
+- [Level 13 → 14](#level-13--14)
+- [Level 14 → 15](#level-14--15)
+- [Level 15 → 16](#level-15--16)
+- [Level 16 → 17](#level-16--17)
+- [Key Skills Learned](#key-skills-learned)
+- [Final Reflection](#final-reflection)
 
 ---
 
-## 📚 Levels Completed
+## Level 0 → 1
 
-## 🔹 Level 0 → 1
-### Objective
-Connect to Bandit using SSH and read the password from `readme`.
+**Objective:** Connect to Bandit and read the password stored in `readme`.
 
-### Commands
 ```bash
 ssh bandit0@bandit.labs.overthewire.org -p 2220
 ls
 cat readme
-````
+```
 
-### Concepts Learned
+**Explanation:**
+- `ssh` opens a secure remote shell.
+- `-p 2220` specifies a custom SSH port.
+- `ls` lists files in the current directory.
+- `cat` prints file contents.
 
-* SSH login
-* Listing files
-* Reading file contents
+**Skills Learned:** First remote login · Basic Linux navigation · Reading files
 
 ---
 
-## 🔹 Level 1 → 2
+## Level 1 → 2
 
-### Objective
-
-Read a file named `-`
-
-### Command
+**Objective:** Read a file named `-`.
 
 ```bash
 cat ./-
 ```
 
-### Concepts Learned
+**Explanation:** A lone `-` is often interpreted as standard input. Prefixing with `./` tells the shell it is a filename in the current directory.
 
-* Special filenames
-* Current directory paths
+**Skills Learned:** Special filenames · Path-based disambiguation
 
 ---
 
-## 🔹 Level 2 → 3
+## Level 2 → 3
 
-### Objective
-
-Read a file with spaces in its name.
-
-### Command
+**Objective:** Read a filename containing spaces.
 
 ```bash
-cat "./--spaces in this filename--"
+cat "./spaces in this filename"
 ```
 
-### Concepts Learned
+**Explanation:** Spaces split command arguments. Quotes preserve the entire filename as one argument.
 
-* Quoting arguments
-* Handling spaces in filenames
+**Skills Learned:** Quoting arguments · Handling spaces in filenames
 
 ---
 
-## 🔹 Level 3 → 4
+## Level 3 → 4
 
-### Objective
-
-Find a hidden file in `inhere`
-
-### Commands
+**Objective:** Find a hidden file in `inhere`.
 
 ```bash
 cd inhere
@@ -112,331 +97,230 @@ ls -a
 cat ...Hiding-From-You
 ```
 
-### Concepts Learned
+**Explanation:** Files beginning with `.` are hidden. `ls -a` shows hidden entries.
 
-* Hidden files
-* `ls -a`
+**Skills Learned:** Hidden files · Directory traversal
 
 ---
 
-## 🔹 Level 4 → 5
+## Level 4 → 5
 
-### Objective
-
-Find the only human-readable file.
-
-### Commands
+**Objective:** Find the only human-readable file among many files.
 
 ```bash
+cd inhere
 file ./*
 cat ./-file07
 ```
 
-### Concepts Learned
+**Explanation:** The `file` command detects file type based on content rather than extension. The readable file was identified as ASCII text.
 
-* File type detection
-* ASCII vs binary files
+**Skills Learned:** File type identification · Efficient investigation
 
 ---
 
-## 🔹 Level 5 → 6
+## Level 5 → 6
 
-### Objective
-
-Find a file that is:
-
-* 1033 bytes
-* not executable
-* human-readable
-
-### Command
+**Objective:** Find a file that is human-readable, 1033 bytes, and not executable.
 
 ```bash
 find . -type f -size 1033c ! -executable
+cat <result>
 ```
 
-### Concepts Learned
+**Explanation:**
+- `find .` searches from current directory.
+- `-type f` limits results to files.
+- `-size 1033c` means exactly 1033 bytes.
+- `! -executable` excludes executable files.
 
-* Recursive search
-* Filtering by file size
-* Permissions logic
+**Skills Learned:** Advanced searching · Filtering with conditions
 
 ---
 
-## 🔹 Level 6 → 7
+## Level 6 → 7
 
-### Objective
-
-Find a file with:
-
-* user: bandit7
-* group: bandit6
-* size: 33 bytes
-
-### Command
+**Objective:** Find a file owned by a specific user/group with an exact size.
 
 ```bash
 find / -type f -user bandit7 -group bandit6 -size 33c 2>/dev/null
 ```
 
-### Concepts Learned
+**Explanation:** Searching `/` scans the whole system. `2>/dev/null` hides permission errors by discarding stderr.
 
-* Ownership
-* Error redirection
-* System-wide enumeration
+**Skills Learned:** System-wide enumeration · Error redirection
 
 ---
 
-## 🔹 Level 7 → 8
+## Level 7 → 8
 
-### Objective
-
-Find the password next to the word `millionth`
-
-### Command
+**Objective:** Find the password next to the word `millionth`.
 
 ```bash
 grep millionth data.txt
 ```
 
-### Concepts Learned
+**Explanation:** `grep` searches lines matching a pattern.
 
-* Text searching
-* Pattern matching
+**Skills Learned:** Text searching · Log/data extraction basics
 
 ---
 
-## 🔹 Level 8 → 9
+## Level 8 → 9
 
-### Objective
-
-Find the only unique line.
-
-### Command
+**Objective:** Find the only line that appears once.
 
 ```bash
 sort data.txt | uniq -u
 ```
 
-### Concepts Learned
+**Explanation:** `sort` groups duplicates together. `uniq -u` prints only unique lines.
 
-* Sorting data
-* Removing duplicates
-* Pipelines
+**Skills Learned:** Pipelines · Text processing workflow
 
 ---
 
-## 🔹 Level 9 → 10
+## Level 9 → 10
 
-### Objective
-
-Find readable text in a binary-like file.
-
-### Command
+**Objective:** Find a readable string preceded by `===` signs.
 
 ```bash
 strings data.txt | grep "==="
 ```
 
-### Concepts Learned
+**Explanation:** `strings` extracts readable text from binary-like files. `grep` filters the relevant line.
 
-* Extracting readable strings
-* Binary inspection
+**Skills Learned:** Binary inspection · Useful forensic technique
 
 ---
 
-## 🔹 Level 10 → 11
+## Level 10 → 11
 
-### Objective
-
-Decode Base64 data.
-
-### Command
+**Objective:** Decode Base64 data.
 
 ```bash
 base64 -d data.txt
 ```
 
-### Concepts Learned
+**Explanation:** Base64 is encoding, not encryption. `-d` decodes encoded text back to original content.
 
-* Encoding vs encryption
-* Base64 decoding
+**Skills Learned:** Data encoding concepts · Decoding workflows
 
 ---
 
-## 🔹 Level 11 → 12
+## Level 11 → 12
 
-### Objective
-
-Decode ROT13 text.
-
-### Command
+**Objective:** Decode ROT13 text.
 
 ```bash
 cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 ```
 
-### Concepts Learned
+**Explanation:** ROT13 rotates letters by 13 positions. `tr` translates characters from one set to another.
 
-* Character translation
-* ROT13 cipher
+**Skills Learned:** Character substitution · Text transformation
 
 ---
 
-## 🔹 Level 12 → 13
+## Level 12 → 13
 
-### Objective
-
-Recover password from layered compressed data.
-
-### Workflow
+**Objective:** Recover password from repeatedly compressed hexdump data.
 
 ```bash
 xxd -r data.txt > data
 file data
-gunzip
-bunzip2
-tar -xf
+# then repeatedly use gunzip / bunzip2 / tar -xf
 ```
 
-### Concepts Learned
+**Explanation:** This level required identifying each compression layer, then applying the correct decompression tool until plain text appeared.
 
-* Hexdump reversal
-* Compression tools
-* Nested archives
-* Troubleshooting
+**Skills Learned:** Hexdump reversal · Nested archive handling · Methodical troubleshooting · Trusting `file` output over guessing
 
 ---
 
-## 🔹 Level 13 → 14
+## Level 13 → 14
 
-### Objective
-
-Login using SSH private key.
-
-### Commands
+**Objective:** Use an SSH private key instead of a password.
 
 ```bash
 chmod 600 keyfile
 ssh -i keyfile bandit14@bandit.labs.overthewire.org -p 2220
+cat /etc/bandit_pass/bandit14
 ```
 
-### Concepts Learned
+**Explanation:** Private keys must have restricted permissions. `-i` tells SSH which identity file to use.
 
-* SSH keys
-* File permissions
-* Secure authentication
+**Skills Learned:** Key-based authentication · Permission hardening · Local vs remote file context
 
 ---
 
-## 🔹 Level 14 → 15
+## Level 14 → 15
 
-### Objective
-
-Send password to service on port 30000.
-
-### Command
+**Objective:** Send the current password to a service on port 30000.
 
 ```bash
 echo PASSWORD | nc localhost 30000
 ```
 
-### Concepts Learned
+**Explanation:** `nc` (netcat) opens a TCP connection. The password is sent to the listening service, which returns the next password.
 
-* Netcat
-* TCP communication
-* Ports
+**Skills Learned:** Ports and services · Client/server communication · Meaning of `localhost`
 
 ---
 
-## 🔹 Level 15 → 16
+## Level 15 → 16
 
-### Objective
-
-Send password over TLS on port 30001.
-
-### Command
+**Objective:** Send the password over TLS on port 30001.
 
 ```bash
 echo PASSWORD | openssl s_client -connect localhost:30001 -quiet
 ```
 
-### Concepts Learned
+**Explanation:** Unlike plain TCP, this level required encrypted communication using TLS.
 
-* TLS basics
-* Encrypted communication
+**Skills Learned:** TLS basics · Secure connections · OpenSSL client usage
 
 ---
 
-## 🔹 Level 16 → 17
+## Level 16 → 17
 
-### Objective
-
-Scan ports 31000–32000 and identify the correct TLS service.
-
-### Commands
+**Objective:** Scan ports 31000–32000, identify the correct TLS service, submit the password, and obtain an SSH key.
 
 ```bash
 nmap -p 31000-32000 localhost
 openssl s_client -connect localhost:PORT -quiet
 ```
 
-### Concepts Learned
+**Explanation:** Open ports were tested individually. Some were decoys, one echoed input, and one valid TLS service returned the private key for bandit17.
 
-* Port scanning
-* Service discovery
-* Reconnaissance
-* Enumeration mindset
+**Skills Learned:** Reconnaissance · Port scanning · Service fingerprinting · Distinguishing signal from noise
 
 ---
 
-## 🧠 Key Skills Gained
+## Key Skills Learned
 
-* Linux command-line confidence
-* File and directory handling
-* Searching with `grep` and `find`
-* Text processing
-* Permissions management
-* SSH authentication
-* Networking fundamentals
-* Port scanning with `nmap`
-* Secure connections with OpenSSL
-* Structured troubleshooting
-
----
-
-## 💼 Career Relevance
-
-This project demonstrates skills valuable for:
-
-* Cybersecurity Analyst
-* SOC Analyst
-* Penetration Tester
-* Linux Administrator
-* DevOps Engineer
-* CTF Competitor
+| Category | Skills |
+|----------|--------|
+| Shell | Linux shell confidence, file & directory handling |
+| Search | `find`, `grep`, `strings`, search automation |
+| Permissions | Linux permissions model, key-based auth |
+| Encodings | Base64, ROT13, hexdump, text transformations |
+| Compression | gzip, bzip2, tar — nested archive handling |
+| Networking | TCP/UDP basics, ports, netcat, TLS, OpenSSL |
+| Mindset | Persistence through debugging, methodical troubleshooting |
 
 ---
 
-## 🚀 Next Goals
+## Final Reflection
 
-* Continue higher Bandit levels
-* TryHackMe labs
-* Web security practice
-* Python scripting
-* Privilege escalation labs
-* Build public cybersecurity portfolio
+Bandit Level 0 → 17 was more than a set of puzzles. It was practical training in how Linux systems behave, how services communicate, and how to think like a problem solver. Every mistake became a lesson, and every solved level increased confidence.
+
+This journey built a strong foundation for deeper cybersecurity learning in penetration testing, system administration, and CTF problem solving.
 
 ---
 
-## 📖 Final Reflection
+## Next Goal
 
-Bandit Level 0 → 17 was more than solving puzzles.
-It was practical training in how Linux systems, files, permissions, and networks really work.
-
-Every challenge improved my technical knowledge and problem-solving mindset.
-
-This is only the beginning of my cybersecurity journey. 🔐🔥
-
+Continue Bandit beyond Level 17 and keep documenting progress publicly on GitHub, LinkedIn, and Medium.
 ```
 ```
